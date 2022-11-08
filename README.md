@@ -2,8 +2,9 @@
 Simple use to private function
 
 # Install
---------------------------
+
+> --------------------------
+> > ```
+go get github.com/Jeongkyulee/gojeong
 ```
-*go get github.com/Jeongkyulee/gojeong
-```
-----------------------------
+> ----------------------------
