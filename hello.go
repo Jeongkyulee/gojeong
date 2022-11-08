@@ -1,12 +1,18 @@
 package gojeong
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
+	"golang.org/x/text/encoding/korean"
+	"golang.org/x/text/transform"
 	"io/ioutil"
 	"net/url"
 	"os"
+	"os/exec"
 	"reflect"
 	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -65,4 +71,43 @@ func StrigToHangul(urlEncordString string) string {
 	hangulString, err := url.QueryUnescape(urlEncordString)
 	ErrCheck(err)
 	return hangulString
+}
+
+func StringToSHA(str string) string {
+	hashCode := sha256.New()
+	hashCode.Write([]byte(str))
+	mdCode := hashCode.Sum(nil)
+	stringSHA := hex.EncodeToString(mdCode)
+	return stringSHA
+}
+
+func CMDcommand(command string) string {
+	exeCommand := []string{"cmd", "/c"}
+	cmd := exec.Command(exeCommand[0], exeCommand[1], command)
+	cmdPath, err := os.Getwd()
+	ErrCheck(err)
+	cmd.Dir = cmdPath
+	Output, err := cmd.Output()
+	ErrCheck(err)
+	encordingString, _, err := transform.String(korean.EUCKR.NewDecoder(), string(Output))
+	ErrCheck(err)
+	return encordingString
+}
+
+func BashCommand(command string) string {
+	exeCommand := []string{"bash", "-c"}
+	cmd := exec.Command(exeCommand[0], exeCommand[1], command)
+	cmdPath, err := os.Getwd()
+	ErrCheck(err)
+	cmd.Dir = cmdPath
+	Output, err := cmd.Output()
+	ErrCheck(err)
+	encordingString, _, err := transform.String(korean.EUCKR.NewDecoder(), string(Output))
+	ErrCheck(err)
+	return encordingString
+}
+
+func CheckOS() string {
+	os := runtime.GOOS
+	return os
 }
