@@ -9,24 +9,4 @@ go get github.com/Jeongkyulee/gojeong
 ```
 > ----------------------------
 
-
-### ErrCheck
-```Go
-if err != nil {
-  fmt.Println(err)
-}
-```
---------------------
-
-### PathRead
-```Go
-getwd, lastPath := PathRead(dirtoryname string)
-reflect.Typeof(getwd) == string
-reflect.Typeof(lastPath) == string
-```
-
-### ListFile
-```Go
-[]fileList := ListFile(Path string, fileexted string)
-```
-
+[notion](https://jeongkyu.notion.site/github-com-Jeongkyulee-gojeong-0a0218bbe5fd4562a366b560015d1210)
